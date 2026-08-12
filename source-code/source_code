@@ -1,0 +1,22 @@
+#include <reg51.h>
+
+// Define pins
+sbit sensor = P1^0;  // B-3 Sensor connected to P1.0
+sbit light = P2^0;   // Street Light connected to P2.0
+
+void delay(unsigned int time) {
+    unsigned int i, j;
+    for (i = 0; i < time; i++)
+        for (j = 0; j < 1275; j++);
+}
+
+void main() {
+    while (1) {
+        if (sensor == 0) {  // If sensor detects darkness (LDR high resistance)
+            light = 1;       // Turn ON street light
+        } else {
+            light = 0;       // Turn OFF street light
+        }
+        delay(500);  // Small delay to avoid flickering
+    }
+}
